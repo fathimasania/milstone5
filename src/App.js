@@ -23,7 +23,6 @@ function App() {
   const handleProductAdded = (updatedProduct) => {
     setIsAddProductMode(false);
     setProductToEdit(null);
-    // Force ProductTable to refresh
     setRefreshKey(prevKey => prevKey + 1);
   };
 

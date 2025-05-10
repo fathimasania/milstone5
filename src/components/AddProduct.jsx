@@ -14,7 +14,6 @@ const AddProductForm = ({ onCancel, onProductAdded, productToEdit }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
-  // Initialize form if productToEdit is provided
   useEffect(() => {
     if (productToEdit) {
       setFormData({
@@ -58,17 +57,13 @@ const AddProductForm = ({ onCancel, onProductAdded, productToEdit }) => {
       setFormData(prev => ({
         ...prev,
         imageFile: file,
-        imageUrl: URL.createObjectURL(file) // Create local URL for preview
+        imageUrl: URL.createObjectURL(file) 
       }));
     }
   };
 
   const uploadImageToHostingService = async (file) => {
-    // In a real app, you would upload to a service like Cloudinary, AWS S3, etc.
-    // For demo purposes, we'll use a placeholder service
-    // Replace this with your actual image upload implementation
-    
-    // Simulate upload delay
+
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     // Return a placeholder URL since we can't actually upload to the API
@@ -83,7 +78,6 @@ const AddProductForm = ({ onCancel, onProductAdded, productToEdit }) => {
     try {
       let imageUrl = formData.imageUrl;
       
-      // If user uploaded a new file, we need to upload it
       if (formData.imageFile) {
         imageUrl = await uploadImageToHostingService(formData.imageFile);
       }
@@ -98,10 +92,8 @@ const AddProductForm = ({ onCancel, onProductAdded, productToEdit }) => {
 
       let response;
       if (productToEdit) {
-        // Update existing product
         response = await apiService.put(`/products/${productToEdit.id}`, productData);
       } else {
-        // Create new product
         response = await apiService.post('/products', productData);
       }
       

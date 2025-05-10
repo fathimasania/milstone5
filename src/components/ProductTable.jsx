@@ -14,7 +14,7 @@ const ProductTable = ({ onEditProduct, refreshKey }) => {
 
   useEffect(() => {
     fetchProducts();
-  }, [refreshKey]); // Add refreshKey as dependency to refetch when it changes
+  }, [refreshKey]); 
 
   const fetchProducts = async () => {
     setLoading(true);
@@ -33,7 +33,6 @@ const ProductTable = ({ onEditProduct, refreshKey }) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
         await apiService.delete(`/products/${productId}`);
-        // Remove the deleted product from state
         setProducts(prevProducts => 
           prevProducts.filter(product => product.id !== productId)
         );
@@ -44,13 +43,11 @@ const ProductTable = ({ onEditProduct, refreshKey }) => {
     }
   };
 
-  // Calculate pagination values
   const totalPages = Math.ceil(products.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
 
-  // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const nextPage = () => {
     if (currentPage < totalPages) {
